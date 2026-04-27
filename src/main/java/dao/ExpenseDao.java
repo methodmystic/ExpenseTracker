@@ -15,9 +15,9 @@ import java.util.List;
 public class ExpenseDao {
     public void addExpense(Expense e) throws SQLException, ClassNotFoundException {
         Connection c = DBConnection.getConnection();
-        String sql = "INSERT INTO expenses (id, title , amount, category, date ) VALUES (?, ?, ? , ? ,?)";
-        PreparedStatement ps = new PreparedStatement(sql);
-        ps.setInt(1, e.getId());
+        String sql = "INSERT INTO expenses (user_id, title , amount, category, date ) VALUES (?, ?, ? , ? ,?)";
+        PreparedStatement ps = c.prepareStatement(sql);
+        ps.setInt(1, e.getUserId());
         ps.setString(2, e.getTitle());
         ps.setDouble(3, e.getAmount());
         ps.setString(4, e.getCategory());
@@ -39,12 +39,13 @@ public class ExpenseDao {
 
         while (rs.next()) {
             Expense e = new Expense(
-                    rs.getInt("id"),
-                    rs.getInt("user_id"),
-                    rs.getString("title"),
-                    rs.getDouble("amount"),
-                    rs.getString("category"),
-                    rs.getDate("date")
+                            rs.getInt("id"),
+                            rs.getInt("user_id"),
+                            rs.getString("title"),
+                            rs.getDouble("amount"),
+                            rs.getString("category"),
+                            rs.getDate("date")
+
             );
             list.add(e);
         }
