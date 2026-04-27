@@ -5,23 +5,30 @@ import java.util.Date;
 public class Expense {
     private int id;
     private String title;
-    private Double Amount;
-    private String Category;
+    private double amount;
+    private String category;
     private Date date;
+    private int userId;
 
-    public Expense(int id, String title, Double amount, String category, Date date) {
+    public Expense(int id, int userId , String title, Double amount, String category, Date date) {
         this.id = id;
+        this.userId = userId;
         this.title = title ;
-        this.Amount = amount;
-        this.Category = category;
+        this.amount = amount;
+        this.category = category;
         this.date = date;
-
     }
     public int getId() {
         return id;
     }
     public void setId(int id) {
         this.id = id;
+    }
+    public int getUserId() {
+        return userId;
+    }
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
     public String getTitle() {
         return title;
@@ -30,16 +37,16 @@ public class Expense {
         this.title = title;
     }
     public Double getAmount() {
-        return Amount;
+        return amount;
     }
     public void setAmount(Double amount) {
-        this.Amount = amount;
+        this.amount = amount;
     }
     public String getCategory() {
-        return Category;
+        return category;
     }
     public void setCategory(String category) {
-        this.Category = category;
+        this.category = category;
     }
     public Date getDate() {
         return date;
