@@ -39,12 +39,12 @@ public class ExpenseDao {
 
         while (rs.next()) {
             Expense e = new Expense(
-                            rs.getInt("id"),
-                            rs.getInt("user_id"),
-                            rs.getString("title"),
-                            rs.getDouble("amount"),
-                            rs.getString("category"),
-                            rs.getDate("date")
+                    rs.getInt("id"),
+                    rs.getInt("user_id"),
+                    rs.getString("title"),
+                    rs.getDouble("amount"),
+                    rs.getString("category"),
+                    rs.getDate("date")
 
             );
             list.add(e);
@@ -52,5 +52,48 @@ public class ExpenseDao {
         return list;
     }
 
+    public void deleteExpense(int id) throws SQLException {
+        Connection con = DBConnection.getConnection();
+        String sql = "DELETE FROM expenses WHERE id=?";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, id);
+        ps.executeUpdate();
+    }
+
+    public Expense getExpenseById(int id) throws SQLException {
+        Connection con = DBConnection.getConnection();
+        String sql = "SELECT * FROM expenses WHERE id=?";
+
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, id);
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()) {
+            Expense e = new Expense(
+                    rs.getInt("id"),
+                    rs.getInt("user_id"),
+                    rs.getString("title"),
+                    rs.getDouble("amount"),
+                    rs.getString("category"),
+                    rs.getDate("date")
+            );
+            return e;
+        }
+        return null;
+    }
+
+    public void updateExpense(Expense e) throws SQLException {
+        Connection con = DBConnection.getConnection();
+        String sql = "UPDATE expenses SET title=?, amount=?, category=?, date=? WHERE id=?";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setString(1, e.getTitle());
+        ps.setDouble(2, e.getAmount());
+        ps.setString(3, e.getCategory());
+        ps.setDate(4, new java.sql.Date(e.getDate().getTime()));
+        ps.setInt(5, e.getId());
+        ps.executeUpdate();
+        ps.close();
+
+    }
 }
+
 

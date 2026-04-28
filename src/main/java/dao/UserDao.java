@@ -11,7 +11,7 @@ import java.sql.PreparedStatement;
 public class UserDao {
     public void registerUser (User user) throws SQLException, ClassNotFoundException {
         Connection con = DBConnection.getConnection();
-          String sql = "Insert into Users(name,email,password) Values(?,?,?)";
+          String sql = "INSERT INTO users(name,email,password) VALUES(?,?,?)";
           PreparedStatement ps = con.prepareStatement(sql);
           ps.setString(1, user.getName());
           ps.setString(2, user.getEmail());
