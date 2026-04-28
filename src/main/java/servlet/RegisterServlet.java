@@ -24,7 +24,7 @@ public class RegisterServlet  extends HttpServlet {
             response.sendRedirect("login.jsp");
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
-            response.sendRedirect("register.jsp?error=failed");
+            response.sendRedirect("registration failed");
         }
     }
 }
