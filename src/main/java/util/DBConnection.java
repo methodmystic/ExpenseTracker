@@ -19,7 +19,7 @@ public class DBConnection {
     public static Connection getConnection() throws SQLException{
         String url = "jdbc:sql//localhost:3306/ExpenseTracker";
         String user = "root";
-        String password = "methodystic@9906";
+        String password = "***********";
 
         return DriverManager.getConnection(url,user,password);
     }
