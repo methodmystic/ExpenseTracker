@@ -14,7 +14,8 @@ import java.sql.SQLException;
 import java.text.ParseException;
 
 public class AddexpenseServlet {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, ParseException {
         String title = request.getParameter("title");
         double amount = Double.parseDouble(request.getParameter("amount"));
         String category = request.getParameter("category");
@@ -24,12 +25,15 @@ public class AddexpenseServlet {
         User user = (User) session.getAttribute("user");
         int userId = user.getId();
 
-        Expense expense = new Expense(0, userId, title, amount, category, Date);
-
         try {
+            java.util.Date date = new java.text.SimpleDateFormat("yyyy-MM-dd").parse(dateStr);
+
+            Expense expense = new Expense(0, userId, title, amount, category, date);
+
             ExpenseDao expenseDao = new ExpenseDao();
             expenseDao.addExpense(expense);
             response.sendRedirect("dashboard");
+
         } catch (SQLException | ClassNotFoundException | ParseException e) {
             e.printStackTrace();
             response.sendRedirect("add-expense.jsp?error=failed");

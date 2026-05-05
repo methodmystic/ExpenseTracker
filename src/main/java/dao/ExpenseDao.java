@@ -52,7 +52,7 @@ public class ExpenseDao {
         return list;
     }
 
-    public void deleteExpense(int id) throws SQLException {
+    public void deleteExpense(int id) throws SQLException ,  ClassNotFoundException {
         Connection con = DBConnection.getConnection();
         String sql = "DELETE FROM expenses WHERE id=?";
         PreparedStatement ps = con.prepareStatement(sql);
